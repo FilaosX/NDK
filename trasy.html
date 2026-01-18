@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trasy - Nocna Droga Krzyżowa</title>
+    <link rel="stylesheet" href="style.css">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9p2ZRgsnhni-sPQM6pWowMM3LzxhTYUY&callback=initMap"></script>
+    <script>
+        let map;
+        let directionsService;
+        let directionsRenderer;
+        let currentWaypoints = [];
+
+        const predefinedRoutes = {
+            "": { name: "Własna trasa", origin: "", destination: "", waypoints: [] },
+            "droga-krzyzowa": {
+                name: "Droga Krzyżowa Korczyna-Odrzykoń",
+                origin: "Kościół Korczyna",
+                destination: "Zamek Kamieniec",
+                waypoints: [
+                    { location: "Dolińska 2, Korczyna", stopover: true },
+                ]
+            },
+            "drozki-pana-jezusa": {
+                name: "Droga Krzyżowa Krosno-Dukla)",
+                origin: "Kościół Franciszkanów, Krosno",
+                destination: "Kościół św. Jana z Dukli, Dukla",
+                waypoints: [
+                    { location: "Rynek Krosno", stopover: true },
+
+                ]
+            }
+        };
+
+        function initMap() {
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                suppressMarkers: false,
+                draggable: false
+            });
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: { lat: 49.694, lng: 21.764 },
+                mapTypeId: "terrain"
+            });
+
+            directionsRenderer.setMap(map);
+            directionsRenderer.setPanel(document.getElementById("directions-panel"));
+
+            const originAutocomplete = new google.maps.places.Autocomplete(
+                document.getElementById("start"),
+                { types: ["geocode"], componentRestrictions: { country: "pl" } }
+            );
+            const destinationAutocomplete = new google.maps.places.Autocomplete(
+                document.getElementById("end"),
+                { types: ["geocode"], componentRestrictions: { country: "pl" } }
+            );
+        }
+
+        function loadPredefinedRoute(routeKey) {
+            const route = predefinedRoutes[routeKey] || predefinedRoutes[""];
+            document.getElementById("start").value = route.origin;
+            document.getElementById("end").value = route.destination;
+            currentWaypoints = route.waypoints;
+            document.getElementById("mode").value = "WALKING"; 
+            calcRoute();
+        }
+
+        function calcRoute() {
+            let start = document.getElementById("start").value.trim();
+            let end = document.getElementById("end").value.trim();
+            const mode = "WALKING";
+
+            if (!start || !end) {
+                alert("Proszę wypełnić zarówno początek, jak i koniec trasy.");
+                return;
+            }
+
+            const request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode[mode],
+                unitSystem: google.maps.UnitSystem.METRIC,
+                optimizeWaypoints: false, // zachowujemy kolejność stacji
+                waypoints: currentWaypoints
+            };
+
+            directionsService.route(request, function(result, status) {
+                if (status === "OK") {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert("Nie udało się wyznaczyć trasy: " + status + ". Google Maps może nie znać wszystkich terenowych ścieżek – trasa jest przybliżona.");
+                }
+            });
+        }
+    </script>
+    <style>
+        #map { height: 500px; width: 100%; border: 3px solid #b3a369; border-radius: 15px; margin-bottom: 20px; }
+        #directions-panel { height: 300px; overflow-y: auto; background: #f9f5e9; padding: 10px; border: 2px solid #b3a369; border-radius: 10px; }
+        .directions-form { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+        .directions-form label { font-weight: bold; }
+        .directions-form input, .directions-form select, .directions-form button { padding: 8px; font-size: 16px; }
+        .directions-form button { background: #b3a369; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        #predefined-route { padding: 8px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Nocna Droga Krzyżowa</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu" id="menu">
+                <a href="index.html">NDK</a>
+                <a href="trasy.html">Trasy</a>
+                <a href="onas.html">O nas</a>
+                <a href="zapisy.html">Zapisy</a>
+                <a href="rozwazania.html">Rozważania</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-content">
+        <h1 class="page-title">Trasy</h1>
+<!--
+        <div class="routes-description">
+            <p>Nocna Droga Krzyżowa prowadzi przez historyczne dróżki Kalwarii Zebrzydowskiej – jednego z najważniejszych sanktuariów pasyjnych w Polsce. Trasa obejmuje kolejne kaplice i stacje Drogi Krzyżowej w wyjątkowej, nocnej atmosferze modlitwy i refleksji.</p>
+            <p class="route-info"><strong>Długość trasy:</strong> ok. 12 km | <strong>Czas przejścia:</strong> 4–6 godzin | <strong>Start i meta:</strong> Bazylika Matki Bożej Anielskiej w Kalwarii Zebrzydowskiej</p>
+        </div>
+-->
+        <div class="map-container">
+            <p>Użyj narzędzia poniżej, aby wyznaczyć własną trasę lub przejść jedną z predefiniowanych tras drogi Krzyżowej</p>
+
+            <div class="directions-form">
+                <div class="panel_wpr">
+                    <label for="predefined-route">Predefiniowana trasa:</label><br>
+                    <select id="predefined-route" onchange="loadPredefinedRoute(this.value)">
+                        <option value="">Własna trasa</option>
+                        <option value="droga-krzyzowa">Droga Krzyżowa Korczyna-Odrzykoń</option>
+                        <option value="drozki-pana-jezusa">Krosno-Dukla</option>
+                    </select>
+                </div>
+
+                <div class="panel_wpr">
+                    <label for="start">Początek trasy:</label><br>
+                    <input type="text" id="start" placeholder="Np. Twój adres lub miasto">
+                </div>
+                <div class="panel_wpr">
+                    <label for="end">Koniec trasy:</label><br>
+                    <input type="text" id="end" placeholder="Np. Twój adres lub miasto">
+                </div>
+                <!-- 
+                <div>
+                    <label for="mode">Tryb podróży:</label><br>
+                    <select id="mode">
+                        <option value="DRIVING">Samochodem</option>
+                        <option value="WALKING">Pieszo</option>
+                        <option value="BICYCLING">Rowerem</option>
+                        <option value="TRANSIT">Komunikacją</option>
+                    </select>
+                </div>
+                -->
+                <div>
+                    <button onclick="calcRoute()">Wyznacz trasę</button>
+                </div>
+            </div>
+
+            <div id="map"></div>
+
+            <div id="directions-panel"></div>
+
+            <small class="map-attribution">Mapa dzięki <a href="https://maps.google.com/" target="_blank">Google Maps</a></small>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nocna Droga Krzyżowa.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

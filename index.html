@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nocna Droga Krzyżowa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Nocna Droga Krzyżowa</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu" id="menu">
+                <a href="index.html">NDK</a>
+                <a href="trasy.html">Trasy</a>
+                <a href="onas.html">O nas</a>
+                <a href="zapisy.html">Zapisy</a>
+                <a href="rozwazania.html">Rozważania</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Nocna Droga Krzyżowa</h1>
+        <p>Nocne nabożeństwo pasyjne, które jednoczy setki osób w modlitwie i refleksji nad Męką Pańską. Dołącz do nas i przeżyj wyjątkowe doświadczenie wiary w ciemności nocy.</p>
+        <a href="zapisy.php" class="btn">Zapisz się</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nocna Droga Krzyżowa. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

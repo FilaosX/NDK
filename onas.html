@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O nas - Nocna Droga Krzyżowa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Nocna Droga Krzyżowa</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="menu" id="menu">
+                <a href="index.html">NDK</a>
+                <a href="trasy.html">Trasy</a>
+                <a href="onas.html">O nas</a>
+                <a href="zapisy.html">Zapisy</a>
+                <a href="rozwazania.html">Rozważania</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="page-content">
+        <h1 class="page-title">O nas</h1>
+
+        <div class="about-container">
+            <div class="about-text">
+                <p>Nocna Droga Krzyżowa to nabożeństwo pasyjne organizowane przez wspólnotę wiernych, które łączy głęboką modlitwę z wysiłkiem fizycznym w wyjątkowej, nocnej atmosferze.</p>
+                
+                <p>Inspiracją dla naszego wydarzenia jest Ekstremalna Droga Krzyżowa oraz wielowiekowa tradycja kalwaryjskich dróżek. Chcemy stworzyć przestrzeń, w której każdy uczestnik może w ciszy i skupieniu rozważać Mękę Pańską, pokonując trasę w ciemności, z dala od codziennego zgiełku.</p>
+                
+                <h2 class="section-subtitle">Nasze cele</h2>
+                <ul class="about-list">
+                    <li>Głębsza refleksja nad tajemnicą Krzyża</li>
+                    <li>Budowanie wspólnoty poprzez wspólną modlitwę i wysiłek</li>
+                    <li>Promowanie aktywnego przeżywania wiary</li>
+                    <li>Zachęcanie do osobistej pokuty i nawrócenia</li>
+                </ul>
+                
+                <h2 class="section-subtitle">Organizatorzy</h2>
+                <p>Wydarzenie organizowane jest przez grupę wolontariuszy przy współpracy z parafią Franciszkanie Krosno.</p>
+                
+                <p class="closing-text">Zapraszamy wszystkich – niezależnie od wieku i kondycji – do wzięcia udziału w tym wyjątkowym doświadczeniu wiary. Razem idziemy za Chrystusem.</p>
+            </div>
+
+            <div class="about-image">
+                <img src="obrazki/noc_fr.jpg" alt="Uczestnicy Nocnej Drogi Krzyżowej" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Nocna Droga Krzyżowa. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('menu').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
