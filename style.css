@@ -168,6 +168,7 @@ footer {
     border-radius: 12px;
     box-shadow: 0 6px 15px rgba(0,0,0,0.6);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
 }
 
 .station-tile:hover {
@@ -540,5 +541,102 @@ footer {
 @media (max-width: 768px) {
     .page-title {
         font-size: 2.8rem;
+    }
+}
+
+.station-tile-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.station-tile-link:hover .station-tile {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(179, 163, 105, 0.3);
+    border-color: #d4c28a;
+}
+
+/* Strona pojedynczej stacji */
+.station-page {
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin: 1rem auto 2rem;
+    font-size: 1.1rem;
+    color: #b3a369;
+}
+
+.station-title {
+    text-align: center;
+    font-size: 4rem;
+    color: #d4c28a;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.8);
+}
+
+.station-subtitle {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #e0e0e0;
+    margin-bottom: 3rem;
+}
+
+.station-large-image {
+    display: block;
+    max-width: 900px;
+    width: 90%;
+    margin: 0 auto 3rem;
+    border-radius: 15px;
+    border: 4px solid #b3a369;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.meditation-text {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+    font-size: 1.2rem;
+    line-height: 1.9;
+}
+
+.meditation-text h3 {
+    font-size: 1.8rem;
+    color: #b3a369;
+    margin: 2.5rem 0 1rem;
+    text-align: center;
+}
+
+.meditation-text p {
+    margin-bottom: 1.8rem;
+    text-align: justify;
+}
+
+.meditation-text strong {
+    color: #d4c28a;
+    font-size: 1.3rem;
+}
+
+.meditation-text em {
+    color: #b3a369;
+    font-size: 1.2rem;
+    display: block;
+    margin: 1rem 0;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .station-title {
+        font-size: 3rem;
+    }
+    .station-subtitle {
+        font-size: 1.8rem;
+    }
+    .meditation-text {
+        font-size: 1.1rem;
     }
 }
