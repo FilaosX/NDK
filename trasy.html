@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trasy - Nocna Droga Krzyżowa</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Maps JavaScript API – zastąp TWOJ_KLUCZ_API swoim kluczem API -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9p2ZRgsnhni-sPQM6pWowMM3LzxhTYUY&callback=initMap"></script>
     <script>
         let map;
@@ -14,23 +15,197 @@
 
         const predefinedRoutes = {
             "": { name: "Własna trasa", origin: "", destination: "", waypoints: [] },
-            "droga-krzyzowa": {
-                name: "Droga Krzyżowa Korczyna-Odrzykoń",
-                origin: "Kościół Korczyna",
-                destination: "Zamek Kamieniec",
+            "sw_jana": {
+                name: "Św. Jana z Dukli",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Pustelnia św. Jana z Dukli",
                 waypoints: [
-                    { location: "Dolińska 2, Korczyna", stopover: true },
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6809117,21.8192631", stopover: true },
+                    { location: "49.6812924,21.8526181", stopover: true },
+                    { location: "49.6702104,21.8890897", stopover: true },
+                    { location: "49.6429868,21.8847407", stopover: true },
+                    { location: "49.6162599,21.8719587", stopover: true },
+                    { location: "49.6072494,21.8499507", stopover: true },
+                    { location: "49.5804851,21.8224363", stopover: true },
+                    { location: "49.5625223,21.7899688", stopover: true },
+                    { location: "49.5453644,21.7595771", stopover: true },
+                    { location: "49.5343166,21.7444668", stopover: true },
+                    { location: "49.5301715,21.7179437", stopover: true },
+                    { location: "49.5225563,21.6903105", stopover: true },
+                    { location: "49.515146,21.6759364", stopover: true }
                 ]
             },
-            "drozki-pana-jezusa": {
-                name: "Droga Krzyżowa Krosno-Dukla)",
-                origin: "Kościół Franciszkanów, Krosno",
-                destination: "Kościół św. Jana z Dukli, Dukla",
+             "MBM": {
+                name: "Matki Bożej Murkowej",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Parafia św. Wawrzyńca w Rymanowie",
+                waypoints: [
+                    { location: "49.6939207,21.7651414", stopover: true },
+                    { location: "49.6806276,21.7667029", stopover: true },
+                    { location: "49.6757439,21.7349535", stopover: true },
+                    { location: "49.6607424,21.7211632", stopover: true },
+                    { location: "49.6254726,21.7312091", stopover: true },
+                    { location: "49.602814,21.7090309", stopover: true },
+                    { location: "49.5958544,21.7014973", stopover: true },
+                    { location: "49.5685658,21.6983564", stopover: true },
+                    { location: "49.551611,21.6902046", stopover: true },
+                    { location: "49.543096,21.7355896", stopover: true },
+                    { location: "49.5453644,21.7595771", stopover: true },
+                    { location: "49.5427801,21.7986099", stopover: true },
+                    { location: "49.5569072,21.8342064", stopover: true },
+                    { location: "49.5749611,21.866303", stopover: true }
+                ]
+            },
+             "bl_piotra": {
+                name: "Bł. Piotra Jerzego Frassati",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół pw. NMP Królowej Świata w Wiśniowej",
+                waypoints: [
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6895721,21.7886608", stopover: true },
+                    { location: "49.6997246,21.8305954", stopover: true },
+                    { location: "49.7094823,21.8791097", stopover: true },
+                    { location: "49.7220493,21.8767916", stopover: true },
+                    { location: "49.7401382,21.8325579", stopover: true },
+                    { location: "49.7415119,21.7890848", stopover: true },
+                    { location: "49.7541329,21.7840517", stopover: true },
+                    { location: "49.7648159,21.756951", stopover: true },
+                    { location: "49.788059,21.7291174", stopover: true },
+                    { location: "49.8211944,21.6990971", stopover: true },
+                    { location: "49.8368026,21.6730222", stopover: true },
+                    { location: "49.8508577,21.641393", stopover: true },
+                    { location: "49.8680707,21.6454458", stopover: true }
+                ]
+            },
+             "sw_franciszka": {
+                name: "Św.Franciszka z Asyżu",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół Rzymskokatolicki pw. Św. Stanisława Biskupa Męczennika, Rymanów-Zdrój",
+                waypoints: [
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6744895,21.8299038", stopover: true },
+                    { location: "49.6771497,21.8537956", stopover: true },
+                    { location: "49.6703089,21.8878978", stopover: true },
+                    { location: "49.6377417,21.9168902", stopover: true },
+                    { location: "49.6175666,21.9432707", stopover: true },
+                    { location: "49.5742443,21.9434979", stopover: true },
+                    { location: "49.5456717,21.9377073", stopover: true },
+                    { location: "49.51069,21.9409702", stopover: true },
+                    { location: "49.498999,21.9317078", stopover: true },
+                    { location: "49.5091093,21.9082222", stopover: true },
+                    { location: "49.5122377,21.882669", stopover: true },
+                    { location: "49.533199,21.8592278", stopover: true },
+                    { location: "49.545534,21.8483779", stopover: true }
+                ]
+            },
+             "sw_antoniego": {
+                name: "Św. Antoniego z Padwy",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Sanktuarium św. Antoniego - Franciszkanie Jasło",
+                waypoints: [
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6999222,21.773785", stopover: true },
+                    { location: "49.7200687,21.7708836", stopover: true },
+                    { location: "49.7386842,21.7400735", stopover: true },
+                    { location: "49.7569466,21.7169853", stopover: true },
+                    { location: "49.7871747,21.6936635", stopover: true },
+                    { location: "49.7978983,21.6717353", stopover: true },
+                    { location: "49.7886004,21.6470521", stopover: true },
+                    { location: "49.7759662,21.611412", stopover: true },
+                    { location: "49.7752747,21.5517439", stopover: true },
+                    { location: "49.7810502,21.4974849", stopover: true },
+                    { location: "49.7548775,21.4877975", stopover: true },
+                    { location: "49.7417928,21.4768409", stopover: true },
+                    { location: "49.7428426,21.4689768", stopover: true }
+                ]
+            },
+             "sw_klary": {
+                name: "Św. Klary",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół Rzymskokatolicki pw. św. Katarzyny Aleksandryjskiej, Jaśliska",
+                waypoints: [
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6785667,21.7710664", stopover: true },
+                    { location: "49.6587388,21.7541462", stopover: true },
+                    { location: "49.648593,21.7323206", stopover: true },
+                    { location: "49.628421,21.7017175", stopover: true },
+                    { location: "49.605131,21.7101547", stopover: true },
+                    { location: "49.5843757,21.69526", stopover: true },
+                    { location: "49.5585404,21.6826718", stopover: true },
+                    { location: "49.5331682,21.7016086", stopover: true },
+                    { location: "49.5297309,21.717187", stopover: true },
+                    { location: "49.5063253,21.7248562", stopover: true },
+                    { location: "49.4795313,21.7443617", stopover: true },
+                    { location: "49.4516571,21.7438362", stopover: true },
+                    { location: "49.4338093,21.7973447", stopover: true }
+                ]
+            },
+             "sw_maksymiliana": {
+                name: "Św. Maksymiliana Marii Kolbe",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół Rzymskokatolicki pw. św. Józefa Robotnika, Pstrągowa",
+                waypoints: [
+                    { location: "49.6941705,21.7638531", stopover: true },
+                    { location: "49.7151354,21.7740666", stopover: true },
+                    { location: "49.7259181,21.7811133", stopover: true },
+                    { location: "49.7404574,21.785086", stopover: true },
+                    { location: "49.746983,21.8183579", stopover: true },
+                    { location: "49.7643406,21.7987253", stopover: true },
+                    { location: "49.7661784,21.755641", stopover: true },
+                    { location: "49.7919875,21.7683018", stopover: true },
+                    { location: "49.7979974,21.7988632", stopover: true },
+                    { location: "49.8351867,21.7759447", stopover: true },
+                    { location: "49.8528539,21.7972803", stopover: true },
+                    { location: "49.8775877,21.7861227", stopover: true },
+                    { location: "49.9141457,21.7690386", stopover: true },
+                    { location: "49.9334181,21.7628642", stopover: true }
+                ]
+            },
+             "sw_andrzeja": {
+                name: "Św. Andrzeja Boboli",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół Rzymskokatolicki pw. Podwyższenia Krzyża Świętego, Sanok",
+                waypoints: [
+                    { location: "49.6919126,21.7672204", stopover: true },
+                    { location: "49.6809369,21.8190662", stopover: true },
+                    { location: "49.6811942,21.8519969", stopover: true },
+                    { location: "49.6699637,21.8883413", stopover: true },
+                    { location: "49.6376596,21.9173441", stopover: true },
+                    { location: "49.6453772,21.9383515", stopover: true },
+                    { location: "49.6390809,22.0008771", stopover: true },
+                    { location: "49.6203341,22.0190512", stopover: true },
+                    { location: "49.6060445,22.0541103", stopover: true },
+                    { location: "49.6039756,22.0951573", stopover: true },
+                    { location: "49.5973948,22.1475869", stopover: true },
+                    { location: "49.5856457,22.1852452", stopover: true },
+                    { location: "49.5725857,22.1955973", stopover: true },
+                    { location: "49.5606243,22.2068703", stopover: true }
+                ]
+            },
+            "latwa": {
+                name: "Droga Krzyżowa Korczyna-Odrzykoń",
+                origin: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
+                destination: "Kościół O. Franciszkanów, Krosno ul. Franciszkańska 5",
                 waypoints: [
                     { location: "Rynek Krosno", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true },
+                    { location: "", stopover: true }
 
                 ]
             }
+            // Możesz dodać więcej tras, np. Dróżki Matki Bożej – analogicznie dodaj waypoints
         };
 
         function initMap() {
@@ -64,7 +239,7 @@
             document.getElementById("start").value = route.origin;
             document.getElementById("end").value = route.destination;
             currentWaypoints = route.waypoints;
-            document.getElementById("mode").value = "WALKING"; 
+            document.getElementById("mode").value = "WALKING"; // domyślnie pieszo dla tras kalwaryjskich
             calcRoute();
         }
 
@@ -116,7 +291,7 @@
                 <a href="index.html">NDK</a>
                 <a href="trasy.html">Trasy</a>
                 <a href="onas.html">O nas</a>
-                <a href="zapisy.html">Zapisy</a>
+                <a href="zapisy.php">Zapisy</a>
                 <a href="rozwazania.html">Rozważania</a>
             </div>
         </nav>
@@ -138,8 +313,15 @@
                     <label for="predefined-route">Predefiniowana trasa:</label><br>
                     <select id="predefined-route" onchange="loadPredefinedRoute(this.value)">
                         <option value="">Własna trasa</option>
-                        <option value="droga-krzyzowa">Droga Krzyżowa Korczyna-Odrzykoń</option>
-                        <option value="drozki-pana-jezusa">Krosno-Dukla</option>
+                        <option value="sw_jana">Trasa św. Jana z Dukli</option>
+                        <option value="MBM">Trasa Matki Bożej Murkowej</option>
+                        <option value="bl_piotra">Trasa bł. Piotra Jerzego Frassati</option>
+                        <option value="sw_franciszka">Trasa św.Franciszka z Asyżu</option>
+                        <option value="sw_antoniego">Trasa św. Antoniego z Padwy</option>
+                        <option value="sw_klary">Trasa św. Klary</option>
+                        <option value="sw_maksymiliana">Trasa św. Maksymiliana Marii Kolbe</option>
+                        <option value="sw_andrzeja">Trasa św. Andrzeja Boboli</option>
+                        <option value="latwa">Trasa Drogi Krzyżowej Korczyna-Odrzykoń</option>
                     </select>
                 </div>
 
@@ -173,7 +355,12 @@
 
             <small class="map-attribution">Mapa dzięki <a href="https://maps.google.com/" target="_blank">Google Maps</a></small>
         </div>
-
+<!-- 
+        <div class="routes-description additional-info">
+            <p>Trasa jest oznaczona w terenie. W razie potrzeby można skorzystać z aplikacji mobilnej lub wydrukowanej mapy (dostępna na miejscu przed startem).</p>
+            <p>Jeśli w przyszłości pojawią się dodatkowe trasy w innych lokalizacjach – informacje zostaną opublikowane tutaj.</p>
+        </div>
+        -->
     </section>
 
     <footer>
